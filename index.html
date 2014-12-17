@@ -20,6 +20,12 @@
         stroke-width: 1.5px;
     }
 
+    .comet{
+        fill: none;
+        stroke: black;
+        stroke-width: 2px;
+    }
+
 </style>
 <body>
 <div id="graphOne"></div>
@@ -38,8 +44,8 @@
     </script>
     <script>
         parametricPlot(
-                function(t){ return {"x": t, "y": t * t - 2}; },
-                d3.range(-4, 4, 0.01),
+                function(t){ return {"x": t, "y": t * t}; },
+                d3.range(-2, 2, 0.01),
                 "#graphTwo");
     </script>
     <script>
@@ -55,7 +61,7 @@
                 function(t){ return {
                     "x": 5 * Math.cos(t) + 1,
                     "y": 5 * Math.sin(t) + 1}; },
-                d3.range(0, 8 * Math.PI, 0.01),
+                d3.range(0, 2 * Math.PI, 0.01),
                 "#graphFour");
     </script>
 </footer>

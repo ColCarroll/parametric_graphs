@@ -8,15 +8,23 @@ function parametricPlot(f, range, id){
 function plot(f, range, id){
     var data = range.map(f);
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
-        width = 800 - margin.left - margin.right,
+        width = 500 - margin.left - margin.right,
         height = 500 - margin.top - margin.bottom;
 
+    function getRange(axis){
+        var extent = d3.extent(data, function(d){ return d[axis]});
+        var range = extent[1] - extent[0];
+        var min = d3.min([extent[0], -0.1 * range]);
+        var max = d3.max([extent[1], 0.1 * range]);
+        return [min, max]
+    }
+
     var x = d3.scale.linear()
-        .domain(d3.extent(data, function(d){return d.x;}))
+        .domain(getRange("x"))
         .range([0, width]);
 
     var y = d3.scale.linear()
-        .domain(d3.extent(data, function(d){return d.y;}))
+        .domain(getRange("y"))
         .range([height, 0]);
 
     var xAxis = d3.svg.axis()
@@ -42,7 +50,7 @@ function plot(f, range, id){
 
     svg.append("g")
         .attr("class", "x axis")
-        .attr("transform", "translate(0," + height/2 + ")")
+        .attr("transform", "translate(0," + y(0) + ")")
         .call(xAxis)
         .selectAll("text")
         .attr("y", 4)
@@ -50,18 +58,46 @@ function plot(f, range, id){
 
     svg.append("g")
         .attr("class", "y axis")
-        .attr("transform", "translate(" + width/2 + ",0)")
+        .attr("transform", "translate(" + x(0) + ",0)")
         .call(yAxis)
         .selectAll("text")
         .attr("x", 4)
         .attr("dy", -4);
 
-    svg.append('path')
-        .attr("class", "line")
+    svg
+        .append('path')
+        .attr("class", "line");
+
+    svg
+        .append('circle')
+        .attr("class", "comet")
+        .attr("r", 5);
+
+    var transition =  svg.transition()
         .transition()
         .ease('linear')
-        .duration(duration)
+        .duration(duration);
+
+    transition
+        .selectAll('.line')
         .attrTween('d', getInterpolation(data, line));
+
+    transition
+        .selectAll('.comet')
+        .attrTween('transform', delta(data, x, y));
+}
+
+function delta(data, xScale, yScale){
+    return function(d, i, a) {
+        var len = data.length;
+        return function(t){
+            var idx = Math.floor(t * len);
+            var point = (idx < len)? data[idx] : data[len - 1];
+
+            return "translate(" + xScale(point.x) + "," + yScale(point.y) + ")";
+        }
+    }
+
 }
 
 function getInterpolation(dataSet, lineFunc) {

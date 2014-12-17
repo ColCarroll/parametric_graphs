@@ -25,6 +25,7 @@
 <div id="graphOne"></div>
 <div id="graphTwo"></div>
 <div id="graphThree"></div>
+<div id="graphFour"></div>
 
 <footer>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.1/d3.min.js"></script>
@@ -48,6 +49,14 @@
                     "y": 4 * Math.cos(t) - 1.5 * Math.cos(2 * t) - 0.6 * Math.cos(3 * t) - 0.2 * Math.cos(4 * t) + 1}; },
                 d3.range(0, 8 * Math.PI, 0.01),
                 "#graphThree");
+    </script>
+     <script>
+        parametricPlot(
+                function(t){ return {
+                    "x": 5 * Math.cos(t) + 1,
+                    "y": 5 * Math.sin(t) + 1}; },
+                d3.range(0, 8 * Math.PI, 0.01),
+                "#graphFour");
     </script>
 </footer>
 </body>

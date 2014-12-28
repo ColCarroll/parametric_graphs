@@ -1,15 +1,19 @@
-var duration = 4000;
+function parametricPlot(f, range, id, options){
+	options = options || {};
+	var duration = options.duration || 4000;
+	var width = options.width || 800;
+	var height = options.height || 500;
 
-function parametricPlot(f, range, id){
-    plot(f, range, id);
-    setInterval(function(){plot(f, range, id);}, 1.5 * duration);
+	var plotter = function(){plot(f, range, id, duration, width, height)};
+	plotter()
+	setInterval(plotter, 1.5 * duration);
 }
 
-function plot(f, range, id){
+function plot(f, range, id, duration, width, height){
     var data = range.map(f);
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
-        width = 500 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = width - margin.left - margin.right,
+        height = height - margin.top - margin.bottom;
 
     function getRange(axis){
         var extent = d3.extent(data, function(d){ return d[axis]});

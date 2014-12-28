@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
-
     body {
         font: 10px sans-serif;
     }
-
     .axis path,
     .axis line {
         fill: none;
@@ -13,13 +11,11 @@
         shape-rendering: crispEdges;
         stroke-width: 1px;
     }
-
     .line {
         fill: none;
         stroke: steelblue;
         stroke-width: 1.5px;
     }
-
     .comet{
         fill: none;
         stroke: black;
@@ -28,41 +24,113 @@
 
 </style>
 <body>
-<div id="graphOne"></div>
-<div id="graphTwo"></div>
-<div id="graphThree"></div>
-<div id="graphFour"></div>
+	<a href="https://github.com/ColCarroll/parametric_graphs"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png"></a>
+	<h1> Parametric plots </h1>
+	<h3>This is a demo page for a small javascript library used to animate parametric graphs using d3js.  Read on for details, or click the banner to go straight to the github source.</h3>
+	<p>
+		You might draw a circle by plotting (cos(t), sin(t)) as t goes from 0 to 2&pi;.  That looks like this:
+	</p>
+	<span id="circleOne"></span>
+	<p>
+		You can adjust the aspect ratio using the optional arguments "width" and "height":
+	</p>
+	<span id="circleTwo"></span>
+	<p>
+		You can make the drawer go four times faster using the optional argument "duration":
+	</p>
+	<span id="circleThree"></span>
+	<p>
+		Using math, you might also just make the domain of t four times as long (0 to 8&pi;), or parameterize by 4t:
+	</p>
+	<span id="circleFour"></span>
+	<span id="circleFive"></span>
 
-<footer>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.1/d3.min.js"></script>
-    <script type="text/javascript" src="graphs.js"></script>
-    <script>
-        parametricPlot(
-                function(t){ return {"x": Math.cos(t), "y": Math.sin(t * 2)}; },
-                d3.range(0, 2 * Math.PI, 0.01),
-                "#graphOne");
-    </script>
-    <script>
-        parametricPlot(
-                function(t){ return {"x": t, "y": t * t}; },
-                d3.range(-2, 2, 0.01),
-                "#graphTwo");
-    </script>
-    <script>
-        parametricPlot(
-                function(t){ return {
-                    "x": 3.5 * Math.sin(t) - Math.sin(3 * t) + 0.7 * Math.sin(29.25 * t),
-                    "y": 4 * Math.cos(t) - 1.5 * Math.cos(2 * t) - 0.6 * Math.cos(3 * t) - 0.2 * Math.cos(4 * t) + 1}; },
-                d3.range(0, 8 * Math.PI, 0.01),
-                "#graphThree");
-    </script>
-     <script>
-        parametricPlot(
-                function(t){ return {
-                    "x": 5 * Math.cos(t) + 1,
-                    "y": 5 * Math.sin(t) + 1}; },
-                d3.range(0, 2 * Math.PI, 0.01),
-                "#graphFour");
-    </script>
-</footer>
+
+	<p>
+		The graph is auto centering, and makes sure to include the origin (this can be good or bad):  Here is a graph centered at (200, 200), and the same graph centered at (0, 0):
+	</p>
+	<span id="heartOne"></span>
+	<span id="heartTwo"></span>
+
+	<p>
+	Check out the <a href="https://github.com/ColCarroll/parametric_graphs" target="_blank">source code</a> to see how the graphs were generated or to grab the javascript.  Uses <a href="http://d3js.org/" target="_blank">d3.js</a>.
+	</p>
+
+	<footer>
+	    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.1/d3.min.js"></script>
+	    <script type="text/javascript" src="graphs.js"></script>
+	    <script>
+		parametricPlot(
+			function(t){ return {"x": Math.cos(t), "y": Math.sin(t)}; },
+			d3.range(0, 2 * Math.PI, 0.01),
+			"#circleOne");
+	    </script>
+	    <script>
+		parametricPlot(
+			function(t){ return {"x": Math.cos(t), "y": Math.sin(t)}; },
+			d3.range(0, 2 * Math.PI, 0.01),
+			"#circleTwo",
+			{
+				width: 400,
+				height: 400
+			});
+	    </script>
+	    <script>
+		parametricPlot(
+			function(t){ return {"x": Math.cos(t), "y": Math.sin(t)}; },
+			d3.range(0, 2 * Math.PI, 0.01),
+			"#circleThree",
+			{
+				duration: 1000,
+				width: 400,
+				height: 400
+			});
+	    </script>
+	    <script>
+		parametricPlot(
+			function(t){ return {"x": Math.cos(t), "y": Math.sin(t)}; },
+			d3.range(0, 8 * Math.PI, 0.01),
+			"#circleFour",
+			{
+				width: 400,
+				height: 400
+			});
+	    </script>
+	    <script>
+		parametricPlot(
+			function(t){ return {"x": Math.cos(4 * t), "y": Math.sin(4 * t)}; },
+			d3.range(0, 2 * Math.PI, 0.01),
+			"#circleFive",
+			{
+				width: 400,
+				height: 400
+			});
+	    </script>
+	    <script>
+		parametricPlot(
+			function(t){ return {
+			    "x": 3.5 * Math.sin(t) - Math.sin(3 * t) + 0.7 * Math.sin(29.25 * t) + 200,
+			    "y": 4 * Math.cos(t) - 1.5 * Math.cos(2 * t) - 0.6 * Math.cos(3 * t) - 0.2 * Math.cos(4 * t) + 1 + 200}; },
+			d3.range(0, 8 * Math.PI, 0.01),
+			"#heartOne",
+			{
+				width: 400,
+				height: 400,
+				duration:4000
+			});
+	    </script>
+	    <script>
+		parametricPlot(
+			function(t){ return {
+			    "x": 3.5 * Math.sin(t) - Math.sin(3 * t) + 0.7 * Math.sin(29.25 * t),
+			    "y": 4 * Math.cos(t) - 1.5 * Math.cos(2 * t) - 0.6 * Math.cos(3 * t) - 0.2 * Math.cos(4 * t)}; },
+			d3.range(0, 8 * Math.PI, 0.01),
+			"#heartTwo",
+			{
+				width: 400,
+				height: 400,
+				duration:4000
+			});
+	    </script>
+	</footer>
 </body>

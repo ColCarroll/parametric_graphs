@@ -68,7 +68,6 @@ function plot(f, range, id, duration, width, height){
 
     svg.selectAll(".tick")
         .each(function (d, i) {
-		console.log(d);
             if ( d === 0 ) {
                 this.remove();
 	    }

@@ -11,7 +11,7 @@ function parametricPlot(f, range, id, options){
 
 function plot(f, range, id, duration, width, height){
     var data = range.map(f);
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+    var margin = {top: 10, right: 10, bottom: 10, left: 10},
         width = width - margin.left - margin.right,
         height = height - margin.top - margin.bottom;
 

@@ -11,7 +11,7 @@ function parametricPlot(f, range, id, options){
 
 function plot(f, range, id, duration, width, height){
     var data = range.map(f);
-    var margin = {top: 10, right: 10, bottom: 10, left: 10},
+    var margin = {top: 15, right: 15, bottom: 15, left: 15},
         width = width - margin.left - margin.right,
         height = height - margin.top - margin.bottom;
 
@@ -57,16 +57,22 @@ function plot(f, range, id, duration, width, height){
         .attr("transform", "translate(0," + y(0) + ")")
         .call(xAxis)
         .selectAll("text")
-        .attr("y", 4)
-        .attr("dx", -4);
+        .attr("y", 7);
 
     svg.append("g")
         .attr("class", "y axis")
         .attr("transform", "translate(" + x(0) + ",0)")
         .call(yAxis)
         .selectAll("text")
-        .attr("x", 4)
-        .attr("dy", -4);
+        .attr("x", 8);
+
+    svg.selectAll(".tick")
+        .each(function (d, i) {
+		console.log(d);
+            if ( d === 0 ) {
+                this.remove();
+	    }
+        });
 
     svg
         .append('path')
